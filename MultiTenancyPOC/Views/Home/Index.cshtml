@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MultiTenancyPOC.Models.Produto>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@if (ViewBag.PossuiCliente)
+{
+
+<div class="jumbotron">
+    <h1>Cliente: @ViewBag.Nome</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Produtos</h2>
+        @foreach(var cliente in Model)
+        {
+            <div>
+                <label>Nome:</label>
+                @cliente.Nome
+            </div>
+            <div>
+                <label>Valor:</label>
+                R$ @cliente.Valor.ToString("N2")
+            </div>
+            <div>
+                <label>Quantidade:</label>
+                @cliente.Quantidade
+            </div>
+        }
+    </div>
+</div>
+
+}
+else
+{
+    <div class="jumbotron">
+        <h1>Você ainda não é um cliente</h1>
+    </div>
+}

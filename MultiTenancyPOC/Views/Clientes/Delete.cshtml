@@ -1,0 +1,56 @@
+﻿@model MultiTenancyPOC.Models.Master.Cliente
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dominio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dominio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StringConexaoBanco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StringConexaoBanco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Icone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Icone)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
