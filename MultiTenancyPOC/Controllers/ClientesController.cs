@@ -117,6 +117,8 @@ namespace MultiTenancyPOC.Controllers
 
             muow.ClienteRepository.Delete(cliente);
 
+            muow.Save();
+
             return RedirectToAction("Index");
         }
 
