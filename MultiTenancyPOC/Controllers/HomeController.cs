@@ -1,45 +1,61 @@
-﻿using MultiTenancyPOC.Models;
-using System;
+﻿using MultiTenancy.Infrastructure.Helpers;
+using MultiTenancy.Integration.Clientes;
+using MultiTenancy.Integration.Clientes.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MultiTenancyPOC.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            IList<Produto> produtos = null;
+        private UnitOfWork uow;
+        private bool possuiCliente;
+        Dictionary<string, Dictionary<string, object>> clientesConfig;
+        Dictionary<string, object> clienteConfig;
 
-            if (Session["domain"] == null)
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            base.OnActionExecuting(filterContext);
+
+            if (Session[Constantes.Ambiente.SESSION_DOMINIO] == null)
             {
-                ViewBag.PossuiCliente = false;
+                possuiCliente = false;
             }
             else
             {
-                string dominio = Session["domain"].ToString();
+                string dominio = Session[Constantes.Ambiente.SESSION_DOMINIO].ToString();
 
-                Dictionary<string, Dictionary<string, object>> clienteConfig =
-                    HttpContext.Application["ClienteConfigs"] as Dictionary<string, Dictionary<string, object>>;
+               clientesConfig =
+                    HttpContext.Application[Constantes.Ambiente.APPLICATION_CONFIGURACOES] as Dictionary<string, Dictionary<string, object>>;
 
-                if (clienteConfig.ContainsKey(dominio))
+                if (clientesConfig.ContainsKey(dominio))
                 {
-                    ViewBag.PossuiCliente = true;
-                    ViewBag.Nome = clienteConfig[dominio]["Nome"].ToString();
+                    clienteConfig = clientesConfig[dominio];
 
-                    ClienteContext clienteContext = new ClienteContext(clienteConfig[dominio]["StringConexaoBanco"].ToString());
+                    this.uow = new UnitOfWork(clientesConfig[dominio][Constantes.Cliente.STRING_CONEXAO].ToString());
 
-                    produtos = clienteContext.Produtos.ToList();
+                    possuiCliente = true;
                 }
                 else
                 {
-                    ViewBag.PossuiCliente = false;
-                }              
+                    possuiCliente = false;
+                }
+            }
+        }
+
+        public ActionResult Index()
+        {
+            IEnumerable<Produto> produtos = null;
+
+            ViewBag.PossuiCliente = this.possuiCliente;
+
+            if (this.possuiCliente)
+            {
+                ViewBag.Nome = clienteConfig[Constantes.Cliente.NOME].ToString();
+
+                produtos = uow.ProdutoRepository.Get();
             }
 
-            
             return View(produtos);
         }
 

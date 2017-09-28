@@ -155,10 +155,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ClienteContext.cs" />
-    <Compile Include="Models\Master\Cliente.cs" />
-    <Compile Include="Models\Master\MasterContext.cs" />
-    <Compile Include="Models\Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -220,11 +216,30 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MultiTenancy.Infrastructure\MultiTenancy.Infrastructure.csproj">
+      <Project>{d3b15af8-b256-4357-af5a-0b5d2b97f1ad}</Project>
+      <Name>MultiTenancy.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MultiTenancy.Integration.Clientes\MultiTenancy.Integration.Clientes.csproj">
+      <Project>{716c2eca-0ff1-424f-b1af-2b847b496051}</Project>
+      <Name>MultiTenancy.Integration.Clientes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MultiTenancy.Integration.Master\MultiTenancy.Integration.Master.csproj">
+      <Project>{3070ed7a-08e3-4656-8253-c8ea87c9ba59}</Project>
+      <Name>MultiTenancy.Integration.Master</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MultiTenancy.Integration\MultiTenancy.Integration.csproj">
+      <Project>{dbe9c17d-e383-4b97-a84f-4f9da6e4194b}</Project>
+      <Name>MultiTenancy.Integration</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

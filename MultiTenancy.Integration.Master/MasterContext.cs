@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MultiTenancy.Integration.Master.Models;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
-namespace MultiTenancyPOC.Models.Master
+namespace MultiTenancy.Integration.Master
 {
     public class MasterContext : DbContext
     {

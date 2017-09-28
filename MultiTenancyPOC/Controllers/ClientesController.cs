@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using MultiTenancy.Integration.Master;
+using MultiTenancy.Integration.Master.Models;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using MultiTenancyPOC.Models;
-using MultiTenancyPOC.Models.Master;
 
 namespace MultiTenancyPOC.Controllers
 {
     public class ClientesController : Controller
     {
-        private MasterContext db = new MasterContext();
+        private MasterUnitOfWork muow = new MasterUnitOfWork();
 
         // GET: Clientes
         public ActionResult Index()
         {
-            return View(db.Clientes.ToList());
+            return View(muow.ClienteRepository.Get());
         }
 
         // GET: Clientes/Details/5
@@ -28,11 +22,14 @@ namespace MultiTenancyPOC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Clientes.Find(id);
+
+            Cliente cliente = muow.ClienteRepository.GetByID(id);
+
             if (cliente == null)
             {
                 return HttpNotFound();
             }
+
             return View(cliente);
         }
 
@@ -51,8 +48,9 @@ namespace MultiTenancyPOC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Clientes.Add(cliente);
-                db.SaveChanges();
+                muow.ClienteRepository.Insert(cliente);
+                muow.Save();
+
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +64,9 @@ namespace MultiTenancyPOC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Clientes.Find(id);
+
+            Cliente cliente = muow.ClienteRepository.GetByID(id);
+
             if (cliente == null)
             {
                 return HttpNotFound();
@@ -83,8 +83,9 @@ namespace MultiTenancyPOC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cliente).State = EntityState.Modified;
-                db.SaveChanges();
+                muow.ClienteRepository.Update(cliente);
+                muow.Save();
+
                 return RedirectToAction("Index");
             }
             return View(cliente);
@@ -97,7 +98,9 @@ namespace MultiTenancyPOC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Clientes.Find(id);
+
+            Cliente cliente = muow.ClienteRepository.GetByID(id);
+
             if (cliente == null)
             {
                 return HttpNotFound();
@@ -110,9 +113,10 @@ namespace MultiTenancyPOC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cliente cliente = db.Clientes.Find(id);
-            db.Clientes.Remove(cliente);
-            db.SaveChanges();
+            Cliente cliente = muow.ClienteRepository.GetByID(id);
+
+            muow.ClienteRepository.Delete(cliente);
+
             return RedirectToAction("Index");
         }
 
@@ -120,7 +124,7 @@ namespace MultiTenancyPOC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                muow.Dispose();
             }
             base.Dispose(disposing);
         }

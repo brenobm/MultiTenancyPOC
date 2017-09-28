@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MultiTenancy.Integration.Clientes.Models;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
-namespace MultiTenancyPOC.Models
+namespace MultiTenancy.Integration.Clientes
 {
     public class ClienteContext : DbContext
     {
