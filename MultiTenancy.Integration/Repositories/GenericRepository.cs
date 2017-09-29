@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace MultiTenancy.Integration.Repositories
 {
-    public class GenericRepository<TEntity, TContext> : IRepository<TEntity>
+    public class GenericRepository<TEntity, TContext> : IGenericRepository<TEntity>
         where TEntity : class
         where TContext : DbContext
     {

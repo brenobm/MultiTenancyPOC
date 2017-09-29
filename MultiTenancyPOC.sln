@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenancy.Integration.Cl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenancy.Integration", "MultiTenancy.Integration\MultiTenancy.Integration.csproj", "{DBE9C17D-E383-4B97-A84F-4F9DA6E4194B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenancy.Infrastructure.CrossCutting", "MultiTenancy.Infrastructure.CrossCutting\MultiTenancy.Infrastructure.CrossCutting.csproj", "{1A78DB4E-3EB6-4268-B00A-7B1B2D37F3D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{DBE9C17D-E383-4B97-A84F-4F9DA6E4194B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBE9C17D-E383-4B97-A84F-4F9DA6E4194B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBE9C17D-E383-4B97-A84F-4F9DA6E4194B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A78DB4E-3EB6-4268-B00A-7B1B2D37F3D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A78DB4E-3EB6-4268-B00A-7B1B2D37F3D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A78DB4E-3EB6-4268-B00A-7B1B2D37F3D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A78DB4E-3EB6-4268-B00A-7B1B2D37F3D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

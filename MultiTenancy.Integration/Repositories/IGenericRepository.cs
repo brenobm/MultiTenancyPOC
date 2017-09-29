@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace MultiTenancy.Integration
 {
-    public interface IRepository<TEntity> 
+    public interface IGenericRepository<TEntity> 
         where TEntity : class
     {
         IEnumerable<TEntity> Get(

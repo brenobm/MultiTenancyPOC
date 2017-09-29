@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace MultiTenancy.Integration
 {
-    public abstract class GenericUnitOfWork
+    public abstract class GenericUnitOfWork : IGenericUnitOfWork
     {
         protected DbContext context;
 

@@ -45,6 +45,23 @@ namespace MultiTenancy.Infrastructure.Helpers
             }
         }
 
+        public static string RecuperarStringConexao(HttpContext context)
+        {
+            string dominio = context.Session[Constantes.Ambiente.SESSION_DOMINIO].ToString();
+
+            string stringConexao = null;
+
+            var configsClientes = HttpContext.Current.Application[Constantes.Ambiente.APPLICATION_CONFIGURACOES]
+                as Dictionary<string, Dictionary<string, object>>;
+
+            if (configsClientes.ContainsKey(dominio))
+            {
+                stringConexao = configsClientes[dominio][Constantes.Cliente.STRING_CONEXAO].ToString();
+            }
+
+            return stringConexao;
+        }
+
         private static string RecuperarSubdominio(string url, string dominio)
         {
             var subdominio = url;

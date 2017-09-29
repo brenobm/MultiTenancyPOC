@@ -4,7 +4,7 @@ using System;
 
 namespace MultiTenancy.Integration.Clientes
 {
-    public class UnitOfWork : GenericUnitOfWork, IDisposable
+    public class UnitOfWork : GenericUnitOfWork, IUnitOfWork, IDisposable
     {
         private GenericRepository<Produto, ClienteContext> produtoRepository;
 

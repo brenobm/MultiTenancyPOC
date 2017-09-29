@@ -5,7 +5,7 @@ using System;
 
 namespace MultiTenancy.Integration.Master
 {
-    public class MasterUnitOfWork : GenericUnitOfWork, IDisposable
+    public class MasterUnitOfWork : GenericUnitOfWork, IMasterUnitOfWork, IDisposable
     {
         private GenericRepository<Cliente, MasterContext> clienteRepository;
 

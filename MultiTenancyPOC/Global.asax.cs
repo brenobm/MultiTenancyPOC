@@ -1,4 +1,5 @@
-﻿using MultiTenancy.Infrastructure.Helpers;
+﻿using MultiTenancy.Infrastructure.CrossCutting;
+using MultiTenancy.Infrastructure.Helpers;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -15,6 +16,8 @@ namespace MultiTenancyPOC
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             MultiTenancyHelper.CarregarClientesCadastrados(this);
+
+            UnityBootstrapper.Initialize();
 
         }
 

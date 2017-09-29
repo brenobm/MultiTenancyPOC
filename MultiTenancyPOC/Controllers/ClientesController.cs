@@ -7,7 +7,12 @@ namespace MultiTenancyPOC.Controllers
 {
     public class ClientesController : Controller
     {
-        private MasterUnitOfWork muow = new MasterUnitOfWork();
+        private IMasterUnitOfWork muow;
+
+        public ClientesController(IMasterUnitOfWork muow)
+        {
+            this.muow = muow;
+        }
 
         // GET: Clientes
         public ActionResult Index()
@@ -120,6 +125,11 @@ namespace MultiTenancyPOC.Controllers
             muow.Save();
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ClienteInvalido()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)

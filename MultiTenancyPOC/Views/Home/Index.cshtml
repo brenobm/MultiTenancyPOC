@@ -3,9 +3,6 @@
     ViewBag.Title = "Home Page";
 }
 
-@if (ViewBag.PossuiCliente)
-{
-
 <div class="jumbotron">
     <h1>Cliente: @ViewBag.Nome</h1>
 </div>
@@ -30,11 +27,3 @@
         }
     </div>
 </div>
-
-}
-else
-{
-    <div class="jumbotron">
-        <h1>Você ainda não é um cliente</h1>
-    </div>
-}
