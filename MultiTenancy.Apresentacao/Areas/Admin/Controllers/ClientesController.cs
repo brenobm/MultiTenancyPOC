@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace MultiTenancy.Apresentacao.Areas.Admin.Controllers
 {
-    [MultiTenancyAttribute(false)]
+    [MultiTenancyController(false)]
     public class ClientesController : Controller
     {
         private ClienteBusiness clienteBusiness;

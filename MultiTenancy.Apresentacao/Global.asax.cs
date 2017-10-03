@@ -25,9 +25,8 @@ namespace MultiTenancy.Apresentacao
                 cfg.CreateMissingTypeMaps = true;
             });
 
-
             MultiTenancyHelper multiTenancy = DependencyResolver.Current.GetService<MultiTenancyHelper>();
-
+            
             multiTenancy.CarregarClientesCadastrados();
         }
 

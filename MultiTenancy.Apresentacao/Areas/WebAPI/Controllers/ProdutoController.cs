@@ -1,18 +1,25 @@
-﻿using System;
+﻿using MultiTenancy.Apresentacao.Filters;
+using MultiTenancy.Dominio.Business;
+using MultiTenancy.Dominio.Entidades;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace MultiTenancy.Apresentacao.Areas.WebAPI.Controllers
 {
+    [MultiTenancyWebAPI(true)]
     public class ProdutoController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        private ProdutoBusiness produtoBusiness;
+
+        public ProdutoController(ProdutoBusiness produtoBusiness)
         {
-            return new string[] { "value1", "value2" };
+            this.produtoBusiness = produtoBusiness;
+        }
+
+        // GET api/<controller>
+        public IEnumerable<Produto> Get()
+        {
+            return produtoBusiness.Listar();
         }
 
         // GET api/<controller>/5

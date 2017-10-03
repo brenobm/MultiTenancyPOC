@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace MultiTenancy.Apresentacao.Controllers
 {
-    [MultiTenancy(true)]
+    [MultiTenancyController(true)]
     public class ProdutosController : Controller
     {
         private ProdutoBusiness produtoBusiness;

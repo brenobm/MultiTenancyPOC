@@ -4,11 +4,11 @@ using System.Web.Routing;
 
 namespace MultiTenancy.Apresentacao.Filters
 {
-    public class MultiTenancyAttribute : ActionFilterAttribute
+    public class MultiTenancyControllerAttribute : ActionFilterAttribute
     {
         public bool MultiTenancyNecessario { get; set; }
         
-        public MultiTenancyAttribute(bool multiTenancyNecessario)
+        public MultiTenancyControllerAttribute(bool multiTenancyNecessario)
         {
             this.MultiTenancyNecessario = multiTenancyNecessario;
         }
@@ -26,7 +26,7 @@ namespace MultiTenancy.Apresentacao.Filters
                             { "area", "" },
                             { "controller", "Acesso" },
                             { "action", "AcessoNegado" },
-                            { "mensagem", "Você não tem permissão de acessa esta página!" }
+                            { "mensagem", "Você não tem permissão de acessar esta página!" }
                     });
             }
 
