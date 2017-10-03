@@ -186,15 +186,16 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ClientesController.cs" />
+    <Compile Include="Areas\WebAPI\Controllers\ProdutoController.cs" />
+    <Compile Include="Areas\WebAPI\WebAPIAreaRegistration.cs" />
     <Compile Include="Controllers\AcessoController.cs" />
-    <Compile Include="Controllers\Base\MultiTenancyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Filters\VerificarMultiTenancyClienteAttribute.cs" />
+    <Compile Include="Filters\MultiTenancyAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -220,6 +221,7 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Clientes\Index.cshtml" />
+    <Content Include="Areas\WebAPI\Views\web.config" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -261,6 +263,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\WebAPI\Models\" />
+    <Folder Include="Areas\WebAPI\Views\Shared\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

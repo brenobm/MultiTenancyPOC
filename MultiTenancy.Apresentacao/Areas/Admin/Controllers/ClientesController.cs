@@ -1,12 +1,11 @@
-﻿using MultiTenancy.Apresentacao.Controllers.Base;
-using MultiTenancy.Apresentacao.Filters;
+﻿using MultiTenancy.Apresentacao.Filters;
 using MultiTenancy.Dominio.Master.Business;
 using System.Web.Mvc;
 
 namespace MultiTenancy.Apresentacao.Areas.Admin.Controllers
 {
-    [VerificarMultiTenancyCliente(false)]
-    public class ClientesController : MultiTenancyController
+    [MultiTenancyAttribute(false)]
+    public class ClientesController : Controller
     {
         private ClienteBusiness clienteBusiness;
 

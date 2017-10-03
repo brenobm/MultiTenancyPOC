@@ -1,5 +1,4 @@
-﻿using MultiTenancy.Apresentacao.Controllers.Base;
-using MultiTenancy.Apresentacao.Filters;
+﻿using MultiTenancy.Apresentacao.Filters;
 using MultiTenancy.Dominio.Business;
 using MultiTenancy.Dominio.Entidades;
 using System.Net;
@@ -7,8 +6,8 @@ using System.Web.Mvc;
 
 namespace MultiTenancy.Apresentacao.Controllers
 {
-    [VerificarMultiTenancyCliente(true)]
-    public class ProdutosController : MultiTenancyController
+    [MultiTenancy(true)]
+    public class ProdutosController : Controller
     {
         private ProdutoBusiness produtoBusiness;
 

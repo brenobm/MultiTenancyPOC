@@ -27,14 +27,9 @@ namespace MultiTenancy.Infraestrutura.Helpers
             HttpContext.Current.Application[Constantes.Ambiente.APPLICATION_CONFIGURACOES] = configClientes;
         }
 
-        public static Dictionary<string, Cliente> RecuperarConfiguracoesClientes()
+        public static bool PossuiCliente()
         {
-            return (Dictionary<string, Cliente>)HttpContext.Current.Application[Constantes.Ambiente.APPLICATION_CONFIGURACOES];
-        }
-
-        public static void AtualizarConfiguracoesClientes(Dictionary<string, Cliente> configuracoes)
-        {
-            HttpContext.Current.Application[Constantes.Ambiente.APPLICATION_CONFIGURACOES] = configuracoes;
+            return MultiTenancyHelper.RecuperarConfiguracaoCliente() != null;
         }
 
         public static void CarregarConfiguracaoCliente()
@@ -62,12 +57,18 @@ namespace MultiTenancy.Infraestrutura.Helpers
 
         public static Cliente RecuperarConfiguracaoCliente()
         {
-            return (Cliente) HttpContext.Current.Session[Constantes.Ambiente.SESSION_CONFIGURACAO_CLIENTE];
-        }
+            Dictionary<string, Cliente> configuracoes = (Dictionary<string, Cliente>)HttpContext.Current.Application[Constantes.Ambiente.APPLICATION_CONFIGURACOES];
+            string dominio = RecuperarDominioCliente();
 
-        public static void AtualizarConfiguracaoCliente(Cliente cliente)
-        {
-            HttpContext.Current.Session[Constantes.Ambiente.SESSION_CONFIGURACAO_CLIENTE] = cliente;
+            if (configuracoes == null || dominio == null)
+                return null;
+
+            Cliente cliente = (Cliente) configuracoes[dominio];
+
+            if (cliente == null)
+                return null;
+
+            return cliente;
         }
 
         public static string RecuperarStringConexao()
@@ -90,11 +91,6 @@ namespace MultiTenancy.Infraestrutura.Helpers
             }
 
             return stringConexao;
-        }
-
-        public static void AtualizarDominio(string dominio)
-        {
-            HttpContext.Current.Session[Constantes.Ambiente.SESSION_DOMINIO] = dominio;
         }
 
         private static string RecuperarSubdominio(string url, string dominio)

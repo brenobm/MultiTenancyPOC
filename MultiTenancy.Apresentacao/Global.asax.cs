@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using MultiTenancy.Infraestrutura.Helpers;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.SessionState;
 
 namespace MultiTenancy.Apresentacao
 {
@@ -32,6 +34,11 @@ namespace MultiTenancy.Apresentacao
         protected void Application_PreRequestHandlerExecute()
         {
             MultiTenancyHelper.CarregarConfiguracaoCliente();
+        }
+
+        protected void Application_PostAuthorizeRequest()
+        {
+            HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
         }
     }
 }
