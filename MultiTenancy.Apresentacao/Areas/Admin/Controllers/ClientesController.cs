@@ -1,14 +1,24 @@
 ﻿using MultiTenancy.Apresentacao.Controllers.Base;
+using MultiTenancy.Apresentacao.Filters;
+using MultiTenancy.Dominio.Master.Business;
 using System.Web.Mvc;
 
 namespace MultiTenancy.Apresentacao.Areas.Admin.Controllers
 {
-    public class ClienteController : MultiTenancyController
+    [VerificarMultiTenancyCliente(false)]
+    public class ClientesController : MultiTenancyController
     {
+        private ClienteBusiness clienteBusiness;
+
+        public ClientesController(ClienteBusiness clienteBusiness)
+        {
+            this.clienteBusiness = clienteBusiness;
+        }
+
         // GET: Admin/Cliente
         public ActionResult Index()
         {
-            return View();
+            return View(clienteBusiness.Listar());
         }
 
         // GET: Admin/Cliente/Details/5

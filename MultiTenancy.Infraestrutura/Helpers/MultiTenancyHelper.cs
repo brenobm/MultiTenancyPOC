@@ -27,6 +27,16 @@ namespace MultiTenancy.Infraestrutura.Helpers
             HttpContext.Current.Application[Constantes.Ambiente.APPLICATION_CONFIGURACOES] = configClientes;
         }
 
+        public static Dictionary<string, Cliente> RecuperarConfiguracoesClientes()
+        {
+            return (Dictionary<string, Cliente>)HttpContext.Current.Application[Constantes.Ambiente.APPLICATION_CONFIGURACOES];
+        }
+
+        public static void AtualizarConfiguracoesClientes(Dictionary<string, Cliente> configuracoes)
+        {
+            HttpContext.Current.Application[Constantes.Ambiente.APPLICATION_CONFIGURACOES] = configuracoes;
+        }
+
         public static void CarregarConfiguracaoCliente()
         {
             Uri url = HttpContext.Current.Request.Url;
@@ -43,13 +53,35 @@ namespace MultiTenancy.Infraestrutura.Helpers
             }
         }
 
+        public static string RecuperarDominioCliente()
+        {
+            object dominio = HttpContext.Current.Session[Constantes.Ambiente.SESSION_DOMINIO];
+
+            return dominio != null ? dominio.ToString() : null;
+        }
+
+        public static Cliente RecuperarConfiguracaoCliente()
+        {
+            return (Cliente) HttpContext.Current.Session[Constantes.Ambiente.SESSION_CONFIGURACAO_CLIENTE];
+        }
+
+        public static void AtualizarConfiguracaoCliente(Cliente cliente)
+        {
+            HttpContext.Current.Session[Constantes.Ambiente.SESSION_CONFIGURACAO_CLIENTE] = cliente;
+        }
+
         public static string RecuperarStringConexao()
         {
-            string dominio = HttpContext.Current.Session[Constantes.Ambiente.SESSION_DOMINIO].ToString();
+            object objDominio = HttpContext.Current.Session[Constantes.Ambiente.SESSION_DOMINIO];
+
+            if (objDominio == null)
+                return null;
+
+            string dominio = objDominio.ToString();
 
             string stringConexao = null;
 
-            var configsClientes = HttpContext.Current.Application[Constantes.Ambiente.APPLICATION_CONFIGURACOES]
+            Dictionary<string, Cliente> configsClientes = HttpContext.Current.Application[Constantes.Ambiente.APPLICATION_CONFIGURACOES]
                 as Dictionary<string, Cliente>;
 
             if (configsClientes.ContainsKey(dominio))

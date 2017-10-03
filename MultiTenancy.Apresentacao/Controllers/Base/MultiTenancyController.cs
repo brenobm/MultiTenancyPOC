@@ -8,43 +8,33 @@ namespace MultiTenancy.Apresentacao.Controllers.Base
 {
     public class MultiTenancyController : Controller
     {
-        protected bool possuiCliente;
-        protected Cliente clienteConfig;
+        public bool PossuiCliente { get; set; }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
 
-            if (Session[Constantes.Ambiente.SESSION_DOMINIO] == null)
-            {
-                possuiCliente = false;
-            }
-            else
-            {
-                string dominio = Session[Constantes.Ambiente.SESSION_DOMINIO].ToString();
+            string dominio = MultiTenancyHelper.RecuperarDominioCliente();
 
-                Dictionary<string, Cliente> clientesConfig =
-                     HttpContext.Application[Constantes.Ambiente.APPLICATION_CONFIGURACOES] as Dictionary<string, Cliente>;
+            PossuiCliente = false;
+
+            if (!string.IsNullOrEmpty(dominio))
+            {
+                Dictionary<string, Cliente> clientesConfig = MultiTenancyHelper.RecuperarConfiguracoesClientes();
+                     ;
 
                 if (clientesConfig.ContainsKey(dominio))
                 {
-                    clienteConfig = clientesConfig[dominio];
+                    MultiTenancyHelper.AtualizarConfiguracaoCliente(clientesConfig[dominio]);
 
-                    MultiTenancyHelper.AtualizarDominio(dominio);
-
-                    possuiCliente = true;
-                }
-                else
-                {
-                    possuiCliente = false;
+                    PossuiCliente = true;
                 }
             }
 
-            if (!possuiCliente)
+            if (!PossuiCliente)
             {
                 MultiTenancyHelper.AtualizarDominio(null);
-                filterContext.Result = RedirectToAction("ClienteInvalido", "Clientes");
-                return;
+                MultiTenancyHelper.AtualizarConfiguracaoCliente(null);
             }
         }
     }

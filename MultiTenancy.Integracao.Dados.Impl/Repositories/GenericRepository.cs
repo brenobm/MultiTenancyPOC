@@ -21,6 +21,9 @@ namespace MultiTenancy.Integracao.Dados.Impl.Repositories
 
         public GenericRepository(DbContext context)
         {
+            if (context == null)
+                return;
+
             this.context = context;
             this.dbSet = context.Set<TEntidade>();
         }
